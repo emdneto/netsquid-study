@@ -1,0 +1,6 @@
+# An simulation descriptor example
+name: Ping-Pong Simulation
+general:
+  duration: 300
+  nodes: 7
+  distance: 2.74
