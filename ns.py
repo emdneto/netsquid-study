@@ -28,16 +28,32 @@ class PingPongDelayModel(DelayModel):
         return delay
 
 nodes = [Node(name=f'n{i}') for i in range(1, qnodes+1)]
+edges = []
 
-qchannels_fwd = [QuantumChannel(name=f'{nodes[i].name}->{nodes[i+1].name}', length=length, models={"delay_model": PingPongDelayModel()}) for i in range(qnodes-1)]
+for node in nodes:
+    print(node.uid)
+
+for i in range(qnodes-1):
+    src = nodes[i].name
+    dst = nodes[i+1].name
+    qlink_1 = (src, dst)
+    qlink_2 = (dst, src)
+    edges.append(qlink_1)
+    edges.append(qlink_2)
+    print(qlink_1, qlink_2)
+
+
+    
+#qchannels_fwd = [QuantumChannel(name=f'{nodes[i].name}->{nodes[i+1].name}', length=length, models={"delay_model": PingPongDelayModel()}) for i in range(qnodes-1)]
 #qchannels_fwd = [QuantumChannel(name=f'n{i}->n{i+1}', length=length, models={"delay_model": PingPongDelayModel()}) for i in range(1, qnodes)]
 #qchannels_bck = [QuantumChannel(name=f'n{i+1}->n{i}', length=length, models={"delay_model": PingPongDelayModel()}) for i in range(1, qnodes)]
 #print(qchannels_fwd)
 
 G.add_nodes_from(nodes)
+G.add_edges_from(edges)
 #G.add_edges_from(qchannels_bck)
 #G.add_edges_from(qchannels_fwd)
 #print(G.nodes())
-
-print(qchannels_fwd)
+print(G)
+#print(qchannels_fwd)
 
